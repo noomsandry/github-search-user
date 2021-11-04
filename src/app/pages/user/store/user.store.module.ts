@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { UserEffects } from './user.effect';
-import { userReducer } from './user.reducer';
+
+import { UserEffects } from '@pages/user/store/user.effect';
+import { userReducer } from '@pages/user/store/user.reducer';
 @NgModule({
   declarations: [
   ],

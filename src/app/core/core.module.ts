@@ -1,7 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LayoutsModule } from '@core/layouts/layouts.module';
-import { CoreStoreModule } from './store/core.store.module';
+import { CoreStoreModule } from '@core/store/core.store.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { CoreStoreModule } from './store/core.store.module';
   imports: [
     BrowserModule,
     LayoutsModule,
-    CoreStoreModule
+    CoreStoreModule,
+    HttpClientModule
   ],
   exports: []
 })

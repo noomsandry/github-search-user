@@ -19,7 +19,6 @@ import { UserStoreModule } from './store/user.store.module';
     SearchUserFormComponent,
   ],
   imports: [
-    CommonModule,
     UserRoutingModule,
     SharedModule,
     UserStoreModule
