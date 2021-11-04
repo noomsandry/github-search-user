@@ -8,6 +8,7 @@ import { SearchViewComponent } from './containers/search-view/search-view.compon
 import { ResultViewComponent } from './containers/result-view/result-view.component';
 import { ResultUserListComponent } from './components/result-user-list/result-user-list.component';
 import { SearchUserFormComponent } from './components/search-user-form/search-user-form.component';
+import { UserStoreModule } from './store/user.store.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { SearchUserFormComponent } from './components/search-user-form/search-us
     CommonModule,
     UserRoutingModule,
     SharedModule,
+    UserStoreModule
   ]
 })
 export class UserModule { }

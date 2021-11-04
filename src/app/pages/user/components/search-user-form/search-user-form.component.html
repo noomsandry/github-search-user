@@ -1,4 +1,9 @@
 <form>
-  <input type="text" placeholder="Username"  [formControl]="username">
-  <button (click)="search($event)">Search</button>
+  <div>
+    <input type="text" placeholder="Username"  [formControl]="username">
+    <span *ngIf="submited && username.invalid && username.errors?.required">
+      Username input is required value
+    </span>
+  </div>
+  <button type="submit" (click)="search($event)" >Search</button>
 </form>
