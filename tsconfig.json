@@ -20,9 +20,6 @@
       "@pages/*": [
         "app/pages/*"
       ],
-      "@layouts/*": [
-        "app/layouts/*"
-      ],
       "@core/*": [
         "app/core/*"
       ],
