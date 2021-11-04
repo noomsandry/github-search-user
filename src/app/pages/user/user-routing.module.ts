@@ -1,18 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { ResultViewComponent } from './containers/result-view/result-view.component';
-import { SearchViewComponent } from './containers/search-view/search-view.component';
+import { SearchUserViewComponent } from '@pages/user/containers/search-user-view/search-user-view.component';
 
 
 const routes: Routes = [
   {
     path: 'search',
-    component: SearchViewComponent
-  },
-  {
-    path: 'result',
-    component: ResultViewComponent
+    component: SearchUserViewComponent
   },
   {
     path: '**',

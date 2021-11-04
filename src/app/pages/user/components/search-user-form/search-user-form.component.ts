@@ -11,6 +11,7 @@ import { UserActions } from '@pages/user/store/user.action';
 export class SearchUserFormComponent implements OnInit {
   public username: FormControl = new FormControl('', Validators.required);
   public submited: boolean = false;
+
   constructor(private store:Store) { }
 
   ngOnInit(): void {
@@ -18,7 +19,14 @@ export class SearchUserFormComponent implements OnInit {
 
   search($event){
     this.submited = true;
+    this.store.dispatch(UserActions.searchUserRequested({ username: this.username.value }));
     $event.preventDefault();
-    this.store.dispatch(UserActions.searchUserRequested({ username: this.username.value }))
+  }
+
+  reset($event){
+    this.store.dispatch(UserActions.searchUserReset());
+    this.username.setValue('');
+    this.submited = false;
+    $event.preventDefault();
   }
 }

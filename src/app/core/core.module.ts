@@ -11,8 +11,8 @@ import { CoreStoreModule } from '@core/store/core.store.module';
     BrowserModule,
     LayoutsModule,
     CoreStoreModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  exports: []
+  exports: [  ]
 })
 export class CoreModule { }

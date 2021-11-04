@@ -8,7 +8,7 @@ import { userReducer } from '@pages/user/store/user.reducer';
   declarations: [
   ],
   imports: [
-    StoreModule.forFeature('user', userReducer),
+    StoreModule.forFeature('users', userReducer),
     EffectsModule.forFeature([UserEffects]),
   ]
 })

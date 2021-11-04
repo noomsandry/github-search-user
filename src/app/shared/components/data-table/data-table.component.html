@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns" scope="col" class="text-light">
+        {{ column.title }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of data; let i = index">
+      <td *ngFor="let column of columns">
+        <app-data-table-cell
+          [value]="column.valueGetter ? column.valueGetter({ data: row, index: i }) : row[column.id]"
+          [className]="column.getClassName ? column.getClassName({ data: row, index: i }) : 'text-light'"
+          (onClick)="column.click ? column.click({ data: row, index: i }) : null"
+        ></app-data-table-cell>
+      </td>
+    </tr>
+  </tbody>
+</table>

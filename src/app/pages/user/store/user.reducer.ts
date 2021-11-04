@@ -5,8 +5,9 @@ import { createReducer, on } from "@ngrx/store";
 import { LoadingState } from "@core/utils/contants";
 import { UserActions } from "./user.action";
 
-interface State extends EntityState<User> {
-  loadingState: LoadingState
+export interface UserState extends EntityState<User> {
+  loadingState: LoadingState,
+  errorMessage: string
 }
 
 function selectUserLogin(user: User): string {
@@ -17,7 +18,7 @@ const adapter: EntityAdapter<User> = createEntityAdapter<User>({
   selectId: selectUserLogin,
 });
 
-const initialState: State = adapter.getInitialState({
+const initialState: UserState = adapter.getInitialState({
   loadingState: LoadingState.Init,
   errorMessage: ''
 });
@@ -36,9 +37,15 @@ const reducer = createReducer(initialState,
 
   on(UserActions.searchUserFail, (state, { errorMessage }) => {
     return { ... state, loadingState: LoadingState.Loaded, errorMessage }
+  }),
+
+  on(UserActions.searchUserReset, (state) => {
+    return adapter.removeAll({ ...state})
   })
 );
 
 export function userReducer(state, action) {
   return reducer(state, action);
 }
+
+export const { selectAll, selectEntities, selectIds, selectTotal } =  adapter.getSelectors();

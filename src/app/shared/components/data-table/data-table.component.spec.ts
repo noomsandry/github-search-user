@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResultUserListComponent } from './result-user-list.component';
+import { DataTableComponent } from './data-table.component';
 
-describe('ResultUserListComponent', () => {
-  let component: ResultUserListComponent;
-  let fixture: ComponentFixture<ResultUserListComponent>;
+describe('DataTableComponent', () => {
+  let component: DataTableComponent;
+  let fixture: ComponentFixture<DataTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ResultUserListComponent ]
+      declarations: [ DataTableComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ResultUserListComponent);
+    fixture = TestBed.createComponent(DataTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
