@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { DataTableColumn } from '../../data-table.interface';
 
 @Component({
   selector: 'app-data-table-cell',
   templateUrl: './data-table-cell.component.html',
-  styleUrls: ['./data-table-cell.component.scss']
+  styleUrls: ['./data-table-cell.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DataTableCellComponent implements OnInit {
   @Input() column: DataTableColumn;

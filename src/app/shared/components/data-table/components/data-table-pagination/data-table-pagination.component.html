@@ -1,1 +1,2 @@
-<p>data-table-pagination works!</p>
+<button [disabled]="nbPage <= 1 || currentPage === 1" (click)="prevPage()">Previous</button>
+<button [disabled]="nbPage <= 1 || currentPage === nbPage" (click)="nextPage()">Next</button>
