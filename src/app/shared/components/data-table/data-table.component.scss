@@ -17,3 +17,8 @@
 .cell-header, .cell-data{
   display: table-cell;
 }
+
+app-data-table-header{
+  width: 100%;
+  display: block
+}

@@ -2,7 +2,7 @@
   <div class="header">
     <div class="row-header">
       <div class="cell-header" *ngFor="let column of columns" [ngStyle]="{ 'width': column.width + '%'}">
-        <app-data-table-header [value]="column.title"></app-data-table-header>
+        <app-data-table-header [sortable]="column.sortable" [value]="column.title" [order]="column.order" (onSort)="sort(column.id, $event)"></app-data-table-header>
       </div>
     </div>
   </div>

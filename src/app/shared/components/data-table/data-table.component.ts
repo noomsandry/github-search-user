@@ -4,7 +4,7 @@ import { Utils } from '@core/utils/utils';
 import { DataTablePaginationComponent } from './components/data-table-pagination/data-table-pagination.component';
 import { DataTableColumn } from './data-table.interface';
 import { DataTableCacheService } from './services/data-table.cache';
-
+import * as _ from 'lodash';
 @Component({
   selector: 'app-data-table',
   templateUrl: './data-table.component.html',
@@ -19,6 +19,10 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Output() onDataTablePageChanged = new EventEmitter();
   @ViewChild('dataTablePagination') dataTablePagination: DataTablePaginationComponent;
   id = Utils.generateId();
+  sortState: {
+    column: string,
+    order: string
+  }
   constructor(private _cache:DataTableCacheService) { }
 
   ngOnInit(): void {
@@ -30,13 +34,33 @@ export class DataTableComponent implements OnInit, OnChanges {
     }else{
       this._cache.clear(this.id)
     }
+    this.checkSort();
   }
+
 
   paginationPageChanged(page){
     if(this.enableCache && this._cache.has(this.id, `${PAGE_CACHE_KEY}_${page}`)){
-      this.data = this._cache.get(this.id, `${PAGE_CACHE_KEY}_${page}`)
+      this.data = this._cache.get(this.id, `${PAGE_CACHE_KEY}_${page}`);
+      this.checkSort();
     }else{
       this.onDataTablePageChanged.emit(page);
+    }
+  }
+
+  sort(column, order){
+    this.data = this.sortData(column, order);
+  }
+
+  sortData(column, order){
+    this.sortState = {
+      column, order
+    }
+    return _.orderBy(this.data, column, order)
+  }
+
+  checkSort(){
+    if(this.sortState){
+      this.data = this.sortData(this.sortState.column, this.sortState.order);
     }
   }
 

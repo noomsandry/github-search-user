@@ -6,6 +6,7 @@ import { User } from '@core/interfaces/user.interface';
 import { UserSelectors } from '@pages/user/store/user.selector';
 import { takeUntil } from 'rxjs/operators';
 import { DataTableColumn } from '@shared/components/data-table/data-table.interface';
+import { SortOrder } from '@core/utils/contants';
 
 
 @Component({
@@ -26,7 +27,9 @@ export class SearchUserResultComponent implements OnInit, OnDestroy {
     {
       id: "login",
       title : "Login",
-      width: 30
+      width: 30,
+      sortable: true,
+      order: SortOrder.Asc
     },
     {
       id: "type",
