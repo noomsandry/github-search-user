@@ -1,1 +1,6 @@
-<app-data-table [columns]="columnDefs" [data]="users$ | async "></app-data-table>
+<app-data-table
+  [columns]="columnDefs"
+  [data]="users$ | async "
+  [total]="totalUsers$ | async"
+  (onDataTablePageChanged)="resultPageChanged($event)"
+></app-data-table>

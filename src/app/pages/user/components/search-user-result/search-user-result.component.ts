@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
@@ -15,21 +15,27 @@ import { DataTableColumn } from '@shared/components/data-table/data-table.interf
 })
 export class SearchUserResultComponent implements OnInit, OnDestroy {
   public users$: Observable<User[]>
+  public totalUsers$: Observable<number>
   private _unsubscribeAll: Subject<any>;
   public columnDefs: DataTableColumn[] = [
     {
       id: "avatar_url",
       title : "Avatar",
+      width: 40
     },
     {
       id: "login",
-      title : "Login"
+      title : "Login",
+      width: 30
     },
     {
       id: "type",
-      title: "Type"
+      title: "Type",
+      width: 30
     }
   ];
+
+  @Output() onResultPageChanged = new EventEmitter();
 
   constructor(private _store:Store) {
     this._unsubscribeAll = new Subject();
@@ -39,6 +45,14 @@ export class SearchUserResultComponent implements OnInit, OnDestroy {
     this.users$ = this._store.pipe(
       takeUntil(this._unsubscribeAll),
       select(UserSelectors.selectUsers))
+
+    this.totalUsers$ = this._store.pipe(
+      takeUntil(this._unsubscribeAll),
+      select(UserSelectors.selectTotalUsers))
+  }
+
+  resultPageChanged(page){
+    this.onResultPageChanged.emit(page)
   }
 
   ngOnDestroy(): void {

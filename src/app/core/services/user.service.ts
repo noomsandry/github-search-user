@@ -13,8 +13,14 @@ export class UserService {
 
   constructor(private _http: HttpClient) { }
 
-  searchUserByname(username): Observable<User[]> {
-    let path = `${ environment.gitHubUrl}/search/users?q=${ username }`;
-    return this._http.get(`${path}`).pipe(map((data) => data['items']));
+  searchUser(criteria): Observable<{users: User[], total:number}> {
+    let path = `${ environment.gitHubUrl}/search/users`;
+    return this._http.get(`${path}`, { params: criteria })
+            .pipe(
+              map((data:any) => ({
+                  users : data.items,
+                  total: data.total_count
+              }))
+            );
   }
 }

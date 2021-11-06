@@ -1,0 +1,19 @@
+.table{
+  display: table;
+}
+
+.header{
+  display: table-header-group;
+}
+
+.body{
+  display: table-row-group;
+}
+
+.row-data, .row-header{
+  display: table-row;
+}
+
+.cell-header, .cell-data{
+  display: table-cell;
+}

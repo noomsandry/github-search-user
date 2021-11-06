@@ -1,20 +1,21 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th *ngFor="let column of columns" scope="col" class="text-light">
-        {{ column.title }}
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let row of data; let i = index">
-      <td *ngFor="let column of columns">
+<div class="table" id="{{ id }}">
+  <div class="header">
+    <div class="row-header">
+      <div class="cell-header" *ngFor="let column of columns" [ngStyle]="{ 'width': column.width + '%'}">
+        <app-data-table-header [value]="column.title"></app-data-table-header>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div *ngFor="let row of data; let i = index" class="row-data">
+      <div *ngFor="let column of columns" class="cell-data" [ngStyle]="{ width: column.width + '%'}">
         <app-data-table-cell
           [value]="column.valueGetter ? column.valueGetter({ data: row, index: i }) : row[column.id]"
           [className]="column.getClassName ? column.getClassName({ data: row, index: i }) : 'text-light'"
           (onClick)="column.click ? column.click({ data: row, index: i }) : null"
         ></app-data-table-cell>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+  <app-data-table-pagination #dataTablePagination [pageSize]="pageSize" [total]="total" (onChange)="paginationPageChanged($event)"></app-data-table-pagination>
+</div>

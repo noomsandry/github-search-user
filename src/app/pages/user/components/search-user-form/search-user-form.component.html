@@ -5,6 +5,6 @@
       Username input is required value
     </span>
   </div>
-  <button type="submit" (click)="search($event)" >Search</button>
-  <button  (click)="reset($event)">Reset</button>
+  <button  (click)="search($event)" *ngIf="!submited">Search</button>
+  <button  (click)="reset($event)" *ngIf="submited">Reset</button>
 </form>

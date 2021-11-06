@@ -1,4 +1,4 @@
-import { User } from "@core/interfaces/user.interface";
+import { SearchUserCriteria, User } from "@core/interfaces/user.interface";
 import { createAction, props } from "@ngrx/store";
 
 const page = '[USER PAGE]';
@@ -10,8 +10,8 @@ const UserActionTypes = {
   SEARCH_USER_RESET: `${ page } Search user Reset`,
 }
 
-const searchUserRequested = createAction(UserActionTypes.SEARCH_USER_REQUESTED, props<{ username: string}>());
-const searchUserSuccess = createAction(UserActionTypes.SEARCH_USER_SUCCESS, props<{ users: User[]}>());
+const searchUserRequested = createAction(UserActionTypes.SEARCH_USER_REQUESTED, props<{ criteria: SearchUserCriteria}>());
+const searchUserSuccess = createAction(UserActionTypes.SEARCH_USER_SUCCESS, props<{ users: User[], total:number}>());
 const searchUserFail = createAction(UserActionTypes.SEARCH_USER_FAIL, props<{ errorMessage: string}>());
 const searchUserReset = createAction(UserActionTypes.SEARCH_USER_RESET);
 

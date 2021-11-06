@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { UserActions } from '@pages/user/store/user.action';
 
 @Component({
   selector: 'app-search-user-form',
@@ -12,21 +10,24 @@ export class SearchUserFormComponent implements OnInit {
   public username: FormControl = new FormControl('', Validators.required);
   public submited: boolean = false;
 
-  constructor(private store:Store) { }
+  @Output() onSubmit = new EventEmitter();
+  @Output() onReset = new EventEmitter();
+
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   search($event){
     this.submited = true;
-    this.store.dispatch(UserActions.searchUserRequested({ username: this.username.value }));
     $event.preventDefault();
+    this.onSubmit.emit(this.username.value);
   }
 
   reset($event){
-    this.store.dispatch(UserActions.searchUserReset());
     this.username.setValue('');
     this.submited = false;
     $event.preventDefault();
+    this.onReset.emit();
   }
 }

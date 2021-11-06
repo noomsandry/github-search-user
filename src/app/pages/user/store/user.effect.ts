@@ -12,8 +12,8 @@ export class UserEffects {
   search$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.searchUserRequested),
-      switchMap(({ username }) => this.userService.searchUserByname(username).pipe(
-        map((users) => UserActions.searchUserSuccess({ users })),
+      switchMap(({ criteria }) => this.userService.searchUser(criteria).pipe(
+        map(({ users, total}) => UserActions.searchUserSuccess({ users , total })),
         catchError(errorMessage => {
           return of(UserActions.searchUserFail({ errorMessage }))
         })

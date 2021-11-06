@@ -1,13 +1,14 @@
-import { User } from "@core/interfaces/user.interface";
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { createReducer, on } from "@ngrx/store";
 
 import { LoadingState } from "@core/utils/contants";
+import { User } from "@core/interfaces/user.interface";
 import { UserActions } from "./user.action";
 
 export interface UserState extends EntityState<User> {
   loadingState: LoadingState,
-  errorMessage: string
+  errorMessage: string,
+  total: number;
 }
 
 function selectUserLogin(user: User): string {
@@ -20,7 +21,8 @@ const adapter: EntityAdapter<User> = createEntityAdapter<User>({
 
 const initialState: UserState = adapter.getInitialState({
   loadingState: LoadingState.Init,
-  errorMessage: ''
+  errorMessage: '',
+  total: 0
 });
 
 const reducer = createReducer(initialState,
@@ -31,8 +33,12 @@ const reducer = createReducer(initialState,
     }
   }),
 
-  on(UserActions.searchUserSuccess, (state, { users }) => {
-    return adapter.setAll(users, { ... state, loadingState: LoadingState.Loaded })
+  on(UserActions.searchUserSuccess, (state, { users, total }) => {
+    let setState =  adapter.setAll(users, { ... state, loadingState: LoadingState.Loaded });
+    return {
+      ...setState,
+      total
+    }
   }),
 
   on(UserActions.searchUserFail, (state, { errorMessage }) => {
@@ -40,7 +46,11 @@ const reducer = createReducer(initialState,
   }),
 
   on(UserActions.searchUserReset, (state) => {
-    return adapter.removeAll({ ...state})
+    let removeState =  adapter.removeAll({ ...state});
+    return {
+      ...removeState,
+      total: 0
+    }
   })
 );
 

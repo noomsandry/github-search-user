@@ -1,2 +1,2 @@
-<app-search-user-form></app-search-user-form>
-<app-search-user-result></app-search-user-result>
+<app-search-user-form (onSubmit)="searchLogin($event)" (onReset)="reset()"></app-search-user-form>
+<app-search-user-result (onResultPageChanged)="searchPage($event)"></app-search-user-result>
