@@ -1,3 +1,5 @@
-<span>
+<span class="{{ sortingClassName }}" [ngClass]="{
+  sorting: sortable
+}"  (click)="sort()">
   {{ value }}
 </span>
