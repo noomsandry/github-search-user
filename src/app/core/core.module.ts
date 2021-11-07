@@ -14,7 +14,7 @@ import { AuthHeaderInterceptor } from '@core/interceptors/header.interceptor';
     CoreStoreModule,
     HttpClientModule,
   ],
-  exports: [  ],
+  exports: [   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

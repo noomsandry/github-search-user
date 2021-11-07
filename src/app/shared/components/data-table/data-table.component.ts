@@ -36,8 +36,6 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("this.dataTablePagination", this.dataTablePagination);
-    console.log("this.data", this.data);
     if(changes && changes.data){
       this.setCache();
     }

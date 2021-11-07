@@ -6,15 +6,20 @@ import { Store } from "@ngrx/store";
 
 import { UserService } from "@core/services/user.service";
 import { UserActions } from "@pages/user/store/user.action";
+import { ToastService } from "@core/services/toast.service";
 @Injectable()
 export class UserEffects {
 
   search$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.searchUserRequested),
-      switchMap(({ criteria }) => this.userService.searchUser(criteria).pipe(
+      switchMap(({ criteria }) => this._userService.searchUser(criteria).pipe(
         map(({ users, total}) => UserActions.searchUserSuccess({ users , total })),
         catchError(errorMessage => {
+          this._toastService.show('Failed to send request', {
+            classname: 'bg-danger text-light',
+            delay: 3000,
+          });
           return of(UserActions.searchUserFail({ errorMessage }))
         })
       ))
@@ -23,7 +28,7 @@ export class UserEffects {
 
   constructor(
     private actions$: Actions,
-    private store: Store,
-    private userService:UserService
+    private _userService:UserService,
+    private _toastService: ToastService
   ){}
 }
