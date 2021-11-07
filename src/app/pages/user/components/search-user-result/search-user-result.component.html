@@ -1,6 +1,19 @@
-<app-data-table
-  [columns]="columnDefs"
-  [data]="users$ | async "
-  [total]="totalUsers$ | async"
-  (onDataTablePageChanged)="resultPageChanged($event)"
-></app-data-table>
+<ng-container *ngIf="{
+  users: users$ | async,
+  totalUsers: totalUsers$ | async,
+  loading: loading$ | async
+} as _">
+  <div class="d-flex justify-content-center align-items-center w-100">
+    <app-data-table
+      *ngIf="_.users && _.users.length > 0"
+      [columns]="columnDefs"
+      [data]="_.users "
+      [total]="_.totalUsers"
+      (onDataTablePageChanged)="resultPageChanged($event)"
+      [visibility]="!_.loading"
+    ></app-data-table>
+    <div class="spinner-border mt-5" role="status" *ngIf="_.loading">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</ng-container>

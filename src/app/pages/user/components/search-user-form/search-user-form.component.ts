@@ -7,7 +7,7 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./search-user-form.component.scss']
 })
 export class SearchUserFormComponent implements OnInit {
-  public username: FormControl = new FormControl('', Validators.required);
+  public login: FormControl = new FormControl('', Validators.required);
   public submited: boolean = false;
 
   @Output() onSubmit = new EventEmitter();
@@ -21,11 +21,13 @@ export class SearchUserFormComponent implements OnInit {
   search($event){
     this.submited = true;
     $event.preventDefault();
-    this.onSubmit.emit(this.username.value);
+    if(this.login.valid){
+      this.onSubmit.emit(this.login.value);
+    }
   }
 
   reset($event){
-    this.username.setValue('');
+    this.login.setValue('');
     this.submited = false;
     $event.preventDefault();
     this.onReset.emit();

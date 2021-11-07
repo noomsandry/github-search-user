@@ -15,13 +15,14 @@ import { SortOrder } from '@core/utils/contants';
   styleUrls: ['./search-user-result.component.scss']
 })
 export class SearchUserResultComponent implements OnInit, OnDestroy {
-  public users$: Observable<User[]>
-  public totalUsers$: Observable<number>
+  public users$: Observable<User[]>;
+  public totalUsers$: Observable<number>;
+  public loading$: Observable<boolean>;
   private _unsubscribeAll: Subject<any>;
   public columnDefs: DataTableColumn[] = [
     {
       id: "avatar_url",
-      title : "Avatar",
+      title : "Avatar Url",
       width: 40
     },
     {
@@ -52,6 +53,10 @@ export class SearchUserResultComponent implements OnInit, OnDestroy {
     this.totalUsers$ = this._store.pipe(
       takeUntil(this._unsubscribeAll),
       select(UserSelectors.selectTotalUsers))
+
+    this.loading$ = this._store.pipe(
+      takeUntil(this._unsubscribeAll),
+      select(UserSelectors.selectLoading))
   }
 
   resultPageChanged(page){

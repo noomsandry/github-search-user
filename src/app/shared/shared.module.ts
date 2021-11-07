@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DataTableModule } from './components/data-table/data-table.module';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
   declarations: [
-
+    ToastComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -15,7 +16,8 @@ import { DataTableModule } from './components/data-table/data-table.module';
   exports: [
     ReactiveFormsModule,
     CommonModule,
-    DataTableModule
+    DataTableModule,
+    ToastComponent
   ]
 })
 export class SharedModule { }

@@ -18,7 +18,6 @@ export class SearchUserViewComponent implements OnInit {
   }
 
   getResultPage(page){
-
   }
 
   searchLogin(login){
