@@ -18,12 +18,14 @@ export class SearchUserResultComponent implements OnInit, OnDestroy {
   public users$: Observable<User[]>;
   public totalUsers$: Observable<number>;
   public loading$: Observable<boolean>;
+  public submited$: Observable<boolean>;
   private _unsubscribeAll: Subject<any>;
   public columnDefs: DataTableColumn[] = [
     {
       id: "avatar_url",
       title : "Avatar Url",
-      width: 40
+      width: 40,
+      sortable: true,
     },
     {
       id: "login",
@@ -35,7 +37,8 @@ export class SearchUserResultComponent implements OnInit, OnDestroy {
     {
       id: "type",
       title: "Type",
-      width: 30
+      width: 30,
+      sortable: true,
     }
   ];
 
@@ -57,6 +60,10 @@ export class SearchUserResultComponent implements OnInit, OnDestroy {
     this.loading$ = this._store.pipe(
       takeUntil(this._unsubscribeAll),
       select(UserSelectors.selectLoading))
+
+    this.submited$ = this._store.pipe(
+      takeUntil(this._unsubscribeAll),
+      select(UserSelectors.selectSubmited))
   }
 
   resultPageChanged(page){

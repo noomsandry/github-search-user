@@ -9,6 +9,7 @@ export interface UserState extends EntityState<User> {
   loadingState: LoadingState,
   errorMessage: string,
   total: number;
+  submited: boolean
 }
 
 function selectUserLogin(user: User): string {
@@ -22,7 +23,8 @@ const adapter: EntityAdapter<User> = createEntityAdapter<User>({
 const initialState: UserState = adapter.getInitialState({
   loadingState: LoadingState.Init,
   errorMessage: '',
-  total: 0
+  total: 0,
+  submited: false
 });
 
 const reducer = createReducer(initialState,
@@ -37,19 +39,21 @@ const reducer = createReducer(initialState,
     let setState =  adapter.setAll(users, { ... state, loadingState: LoadingState.Loaded });
     return {
       ...setState,
-      total
+      total,
+      submited: true
     }
   }),
 
   on(UserActions.searchUserFail, (state, { errorMessage }) => {
-    return { ... state, loadingState: LoadingState.Loaded, errorMessage }
+    return { ... state, loadingState: LoadingState.Loaded, errorMessage, submited: true   }
   }),
 
   on(UserActions.searchUserReset, (state) => {
     let removeState =  adapter.removeAll({ ...state});
     return {
       ...removeState,
-      total: 0
+      total: 0,
+      submited: false
     }
   })
 );

@@ -8,9 +8,11 @@ export const getRouteState =
 const selectUsers = createSelector(getRouteState, selectAll);
 const selectTotalUsers = createSelector(getRouteState, (state) => state.total);
 const selectLoading = createSelector(getRouteState, ({loadingState}) => loadingState === LoadingState.Loading)
+const selectSubmited = createSelector(getRouteState, ({submited}) => submited )
 
 export const UserSelectors = {
   selectUsers,
   selectTotalUsers,
-  selectLoading
+  selectLoading,
+  selectSubmited
 }

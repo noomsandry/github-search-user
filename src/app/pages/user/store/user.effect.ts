@@ -14,7 +14,14 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.searchUserRequested),
       switchMap(({ criteria }) => this._userService.searchUser(criteria).pipe(
-        map(({ users, total}) => UserActions.searchUserSuccess({ users , total })),
+        map(({ users, total}) => {
+          if(total === 0){
+            this._toastService.show('No result found', {
+              delay: 3000,
+            });
+          }
+          return UserActions.searchUserSuccess({ users , total });
+        }),
         catchError(errorMessage => {
           this._toastService.show('Failed to send request', {
             classname: 'bg-danger text-light',
