@@ -14,8 +14,15 @@
   display: table-row;
 }
 
+.row-data:nth-of-type(odd) {
+  background-color: rgba(0,0,0,.05);
+}
+
 .cell-header, .cell-data{
   display: table-cell;
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
 }
 
 app-data-table-header{

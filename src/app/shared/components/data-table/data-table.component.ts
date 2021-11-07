@@ -29,7 +29,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes && changes.data && this.total !== 0 && this.enableCache){
+    if(changes && changes.data && this.total !== 0 && this.enableCache && this.dataTablePagination){
       this._cache.set(this.id, `${PAGE_CACHE_KEY}_${this.dataTablePagination.currentPage}`, this.data)
     }else{
       this._cache.clear(this.id)
@@ -55,7 +55,7 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.sortState = {
       column, order
     }
-    return _.orderBy(this.data, column, order)
+    return _.orderBy(this.data, (row) => String(row[column]).toLocaleLowerCase(), order)
   }
 
   checkSort(){
