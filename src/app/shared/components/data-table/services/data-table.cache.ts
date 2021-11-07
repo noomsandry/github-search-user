@@ -8,10 +8,12 @@ export class DataTableCacheService {
   private cache = {};
 
   set(table, key, data){
+    console.log("SET CACHE:::", this.cache)
     _.set(this.cache, [table, key], data);
   }
 
   get(table, key){
+    console.log("GET CACHE:::", this.cache)
     return _.get(this.cache, [table, key]);
   }
 

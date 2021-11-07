@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { PAGE_CACHE_KEY } from '@core/utils/contants';
 import { Utils } from '@core/utils/utils';
 import { DataTablePaginationComponent } from './components/data-table-pagination/data-table-pagination.component';
@@ -10,7 +10,7 @@ import * as _ from 'lodash';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss']
 })
-export class DataTableComponent implements OnInit, OnChanges {
+export class DataTableComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   @Input() data: any[] = [];
   @Input() columns: DataTableColumn[] = [];
   @Input() pageSize: number = 9;
@@ -18,6 +18,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() enableCache: boolean = true;
   @Output() onDataTablePageChanged = new EventEmitter();
   @ViewChild('dataTablePagination') dataTablePagination: DataTablePaginationComponent;
+  @Input() @HostBinding('class.visible') visibility: boolean = false;
   id = Utils.generateId();
   sortState: {
     column: string,
@@ -25,17 +26,24 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
   constructor(private _cache:DataTableCacheService) { }
 
+
   ngOnInit(): void {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if(changes && changes.data && this.total !== 0 && this.enableCache && this.dataTablePagination){
-      this._cache.set(this.id, `${PAGE_CACHE_KEY}_${this.dataTablePagination.currentPage}`, this.data)
-    }else{
-      this._cache.clear(this.id)
-    }
-    this.checkSort();
+  ngAfterViewInit(): void {
+    this.setCache();
   }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("this.dataTablePagination", this.dataTablePagination);
+    console.log("this.data", this.data);
+    if(changes && changes.data){
+      this.setCache();
+    }
+  }
+
+
 
 
   paginationPageChanged(page){
@@ -61,6 +69,19 @@ export class DataTableComponent implements OnInit, OnChanges {
   checkSort(){
     if(this.sortState){
       this.data = this.sortData(this.sortState.column, this.sortState.order);
+    }
+  }
+
+  setCache(){
+    if(this.enableCache && this.dataTablePagination){
+      this._cache.set(this.id, `${PAGE_CACHE_KEY}_${this.dataTablePagination.currentPage}`, this.data)
+    }
+    this.checkSort();
+  }
+
+  ngOnDestroy(): void {
+    if(this.enableCache){
+      this._cache.clear(this.id)
     }
   }
 

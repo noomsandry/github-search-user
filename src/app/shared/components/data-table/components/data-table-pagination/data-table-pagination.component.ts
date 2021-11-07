@@ -43,5 +43,4 @@ export class DataTablePaginationComponent implements OnInit, OnChanges {
       this.onChange.emit(this.currentPage);
     }
   }
-
 }

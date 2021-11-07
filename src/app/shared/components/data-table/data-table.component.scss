@@ -1,6 +1,14 @@
+:host{
+  display: none;
+}
+:host.visible{
+  display: block;
+}
+
 .table{
   display: table;
 }
+
 
 .header{
   display: table-header-group;

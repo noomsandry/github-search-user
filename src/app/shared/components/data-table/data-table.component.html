@@ -1,4 +1,6 @@
-<table class="table" id="{{ id }}">
+<table class="table" id="{{ id }}" [ngClass]="{
+  visible: visibility
+}">
   <div class="header">
     <div class="row-header">
       <div class="cell-header" *ngFor="let column of columns" [ngStyle]="{ 'width': column.width + '%'}">
