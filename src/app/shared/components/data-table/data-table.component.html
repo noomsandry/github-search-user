@@ -4,7 +4,13 @@
   <div class="header">
     <div class="row-header">
       <div class="cell-header" *ngFor="let column of columns" [ngStyle]="{ 'width': column.width + '%'}">
-        <app-data-table-header [sortable]="column.sortable" [value]="column.title" [order]="column.order" (onSort)="sort(column.id, $event)"></app-data-table-header>
+        <app-data-table-header
+          [sortable]="column.sortable"
+          [value]="column.title"
+          [order]="column.order"
+          [sorting]="sortState?.column === column.id"
+          (onSort)="sort(column.id, $event)">
+        </app-data-table-header>
       </div>
     </div>
   </div>
@@ -19,5 +25,9 @@
       </div>
     </div>
   </div>
-  <app-data-table-pagination #dataTablePagination [pageSize]="pageSize" [total]="total" (onChange)="paginationPageChanged($event)"></app-data-table-pagination>
+  <app-data-table-pagination #dataTablePagination
+    [pageSize]="pageSize"
+    [total]="total"
+    (onChange)="paginationPageChanged($event)">
+  </app-data-table-pagination>
 </table>

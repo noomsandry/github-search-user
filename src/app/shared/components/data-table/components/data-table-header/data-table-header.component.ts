@@ -14,10 +14,20 @@ export class DataTableHeaderComponent implements OnInit {
   @Input() value;
   @Input() sortable;
   @Input() order;
+  @Input() set sorting(value){
+    if(!value){
+      this.sortingClassName = "";
+    }else{
+      this.checkClassName();
+    }
+  };
   @Output() onSort = new EventEmitter();
 
   constructor() { }
   ngOnInit(): void {
+  }
+
+  checkClassName(){
     if(this.order){
       this.onSort.emit(this.order);
       this.sortingClassName = `sorting_${this.order}`
