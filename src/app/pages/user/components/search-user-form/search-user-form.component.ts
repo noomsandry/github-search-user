@@ -24,9 +24,11 @@ export class SearchUserFormComponent implements OnInit {
     if(this.login.valid){
       this.onSubmit.emit(this.login.value);
     }
+    this.login.disable();
   }
 
   reset($event){
+    this.login.enable();
     this.login.setValue('');
     this.submited = false;
     $event.preventDefault();
