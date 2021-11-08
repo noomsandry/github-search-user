@@ -8,9 +8,9 @@ import {
 
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
-
 @Injectable()
 export class AuthHeaderInterceptor implements HttpInterceptor {
+
   constructor() {}
 
   intercept(
