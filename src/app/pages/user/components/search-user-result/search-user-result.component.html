@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center align-items-center w-100 flex-column">
   <ng-template [ngIf]="submited">
-    <h3 class="mt-2" > {{ totalUsers }} matching users found</h3>
+    <h3 class="mt-2 result-info" > {{ totalUsers }} matching users found</h3>
     <app-data-table
       [columns]="columnDefs"
       [data]="users "
