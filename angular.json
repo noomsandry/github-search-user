@@ -116,7 +116,8 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "github-search-user:serve"
+            "devServerTarget": "github-search-user:serve",
+            "port": 4201
           },
           "configurations": {
             "production": {

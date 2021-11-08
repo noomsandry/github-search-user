@@ -6,6 +6,6 @@ export class AppPage {
   }
 
   async getTitleText(): Promise<string> {
-    return element(by.css('app-root .content span')).getText();
+    return (await element(by.css('app-root .navbar-nav .nav-item a')).getText()).trim();
   }
 }
