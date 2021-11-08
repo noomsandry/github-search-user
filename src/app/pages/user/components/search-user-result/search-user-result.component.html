@@ -1,22 +1,15 @@
-<ng-container *ngIf="{
-  users: users$ | async,
-  totalUsers: totalUsers$ | async,
-  loading: loading$ | async,
-  submited: submited$ | async
-} as _">
-  <div class="d-flex justify-content-center align-items-center w-100 flex-column">
-    <ng-template [ngIf]="_.submited">
-      <h3 class="mt-2" > {{ _.totalUsers }} matching users found</h3>
-      <app-data-table
-        [columns]="columnDefs"
-        [data]="_.users "
-        [total]="_.totalUsers"
-        (onDataTablePageChanged)="resultPageChanged($event)"
-        [visibility]="!_.loading"
-      ></app-data-table>
-    </ng-template>
-    <div class="spinner-border mt-5" role="status" *ngIf="_.loading">
-      <span class="sr-only">Loading...</span>
-    </div>
+<div class="d-flex justify-content-center align-items-center w-100 flex-column">
+  <ng-template [ngIf]="submited">
+    <h3 class="mt-2" > {{ totalUsers }} matching users found</h3>
+    <app-data-table
+      [columns]="columnDefs"
+      [data]="users "
+      [total]="totalUsers"
+      (onDataTablePageChanged)="resultPageChanged($event)"
+      [visibility]="!loading"
+    ></app-data-table>
+  </ng-template>
+  <div class="spinner-border mt-5" role="status" *ngIf="loading">
+    <span class="sr-only">Loading...</span>
   </div>
-</ng-container>
+</div>
