@@ -44,7 +44,7 @@ describe('SearchUserFormComponent', () => {
   it('should render reset button', () => {
     const compiled = fixture.debugElement.nativeElement;
     let resetButton = compiled.querySelector('button.reset-btn');
-    const SearchButton = fixture.debugElement.nativeElement.querySelector('button.submit-btn');
+    const SearchButton = compiled.querySelector('button.submit-btn');
 
     expect(resetButton).toBeFalsy();
 
@@ -63,7 +63,7 @@ describe('SearchUserFormComponent', () => {
 
   it("display form error", () => {
     const compiled = fixture.debugElement.nativeElement;
-    let button = fixture.debugElement.nativeElement.querySelector('button.submit-btn');
+    let button = compiled.querySelector('button.submit-btn');
     button.click();
     fixture.detectChanges();
     const input = compiled.querySelector('.invalid-feedback');
@@ -79,6 +79,8 @@ describe('SearchUserFormComponent', () => {
   });
 
   it("submitting a form emits a login", () => {
+    const compiled = fixture.debugElement.nativeElement;
+
     expect(component.login.valid).toBeFalsy();
     component.login.setValue("eric");
 
@@ -88,7 +90,7 @@ describe('SearchUserFormComponent', () => {
     component.onSubmit.subscribe((value) => (login = value));
 
     // Trigger the search button
-    let button = fixture.debugElement.nativeElement.querySelector('button.submit-btn');
+    let button = compiled.querySelector('button.submit-btn');
     button.click();
 
     // Now we can check to make sure the emitted value is correct

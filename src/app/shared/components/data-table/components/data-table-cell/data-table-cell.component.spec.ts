@@ -22,4 +22,12 @@ describe('DataTableCellComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render value', () => {
+    const value = 'TEST'
+    component.value = value;
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.cell-value').textContent.trim()).toEqual(value);
+  });
 });
