@@ -5,16 +5,12 @@ import { SearchUserViewComponent } from '@pages/user/containers/search-user-view
 
 const routes: Routes = [
   {
-    path: 'search',
+    path: '',
     component: SearchUserViewComponent
   },
   {
     path: '**',
-    redirectTo: 'search',
-  },
-  {
-    path: '',
-    redirectTo: 'search',
+    redirectTo: '',
   },
 ];
 

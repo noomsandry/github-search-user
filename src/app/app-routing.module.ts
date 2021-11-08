@@ -5,11 +5,16 @@ import { PagesLayoutComponent } from '@core/layouts/pages-layout/pages-layout.co
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'user',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
     component: PagesLayoutComponent,
     canActivate: [],
     children: [
       {
-        path: '',
+        path: 'user',
         loadChildren: () =>
           import('./pages/user/user.module').then((m) => m.UserModule),
       },
@@ -17,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'user',
   },
 ];
 
