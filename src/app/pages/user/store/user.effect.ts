@@ -2,11 +2,9 @@ import { Injectable } from "@angular/core";
 import { of } from "rxjs";
 import { switchMap, map, catchError } from 'rxjs/operators'
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { Store } from "@ngrx/store";
 
 import { UserService } from "@core/services/user.service";
 import { UserActions } from "@pages/user/store/user.action";
-import { ToastService } from "@core/services/toast.service";
 @Injectable()
 export class UserEffects {
 

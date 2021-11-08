@@ -41,7 +41,6 @@ export class SearchUserResultComponent implements OnInit, OnDestroy {
     }
   ];
 
-
   constructor() {
   }
 

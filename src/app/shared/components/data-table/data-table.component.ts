@@ -5,6 +5,7 @@ import { Utils } from '@core/utils/utils';
 import { DataTablePaginationComponent } from './components/data-table-pagination/data-table-pagination.component';
 import { DataTableColumn } from './data-table.interface';
 import { DataTableCacheService } from './services/data-table.cache';
+
 import * as _ from 'lodash';
 @Component({
   selector: 'app-data-table',
@@ -96,5 +97,4 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
       this._cache.clear(this.id)
     }
   }
-
 }

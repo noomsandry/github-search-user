@@ -2,7 +2,7 @@
   <div class="form-group mb-2">
     <input
       type="text"
-      placeholder="User Login"
+      placeholder="Login"
       [formControl]="login" name="login"
       class="form-control"
       [ngClass]="{'is-invalid': submited && login.invalid && login.errors?.required}"
@@ -12,6 +12,6 @@
       Username input is required value
     </div>
   </div>
-  <button  (click)="search($event)" *ngIf="!resetBtn" class="btn btn-primary mb-2 submit-btn">Search</button>
+  <button  (click)="search($event)" *ngIf="!resetBtn" class="btn btn-primary mb-2 submit-btn">Submit</button>
   <button  (click)="reset($event)" *ngIf="resetBtn" class="btn btn-light mb-2 reset-btn">Reset</button>
 </form>

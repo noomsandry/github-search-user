@@ -4,7 +4,6 @@ import { Subject, Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
 import { User } from '@core/interfaces/user.interface';
-
 import { DEFAULT_SEARCH_USER_CRITERIA } from '@core/utils/contants';
 import { UserActions } from '@pages/user/store/user.action';
 import { SearchUserCriteria } from '@core/interfaces/user.interface';
@@ -44,9 +43,6 @@ export class SearchUserViewComponent implements OnInit, OnDestroy {
     this.submited$ = this._store.pipe(
       takeUntil(this._unsubscribeAll),
       select(UserSelectors.selectSubmited))
-  }
-
-  getResultPage(page){
   }
 
   searchLogin(login){
