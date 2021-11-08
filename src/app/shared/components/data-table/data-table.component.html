@@ -9,7 +9,7 @@
           [value]="column.title"
           [order]="column.order"
           [sorting]="sortState?.column === column.id"
-          (onSort)="sort(column.id, $event)">
+          (onSort)="sortColumn(column.id, $event)">
         </app-data-table-header>
       </div>
     </div>

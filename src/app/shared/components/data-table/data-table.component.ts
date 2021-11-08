@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { PAGE_CACHE_KEY } from '@core/utils/contants';
+import { PAGE_CACHE_KEY, SortOrder } from '@core/utils/contants';
 import { Utils } from '@core/utils/utils';
 import { DataTablePaginationComponent } from './components/data-table-pagination/data-table-pagination.component';
 import { DataTableColumn } from './data-table.interface';
@@ -36,46 +36,56 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes && changes.data){
+    if(changes.data){
       this.setCache();
     }
+    if(changes.columns && changes.columns.currentValue){
+      /* init sort state */
+      let sortColumn = _.find(changes.columns.currentValue, (column)=> column.sortable && column.order);
+      if(sortColumn){
+        this.sortState = {
+          column: sortColumn.id,
+          order: sortColumn.order || SortOrder.Asc
+        }
+        this.applySort();
+      }
+    }
   }
-
-
-
 
   paginationPageChanged(page){
     if(this.enableCache && this._cache.has(this.id, `${PAGE_CACHE_KEY}_${page}`)){
       this.data = this._cache.get(this.id, `${PAGE_CACHE_KEY}_${page}`);
-      this.checkSort();
+      this.applySort();
     }else{
       this.onDataTablePageChanged.emit(page);
     }
   }
 
-  sort(column, order){
+  sortColumn(column, order){
     this.data = this.sortData(column, order);
   }
 
-  sortData(column, order){
+
+  private applySort(){
+    if(this.sortState){
+      this.data = this.sortData(this.sortState.column, this.sortState.order);
+    }
+  }
+
+  private setCache(){
+    if(this.enableCache && this.dataTablePagination){
+      this._cache.set(this.id, `${PAGE_CACHE_KEY}_${this.dataTablePagination.currentPage}`, this.data)
+    }
+    this.applySort();
+  }
+
+  private sortData(column, order){
     this.sortState = {
       column, order
     }
     return _.orderBy(this.data, (row) => String(row[column]).toLocaleLowerCase(), order)
   }
 
-  checkSort(){
-    if(this.sortState){
-      this.data = this.sortData(this.sortState.column, this.sortState.order);
-    }
-  }
-
-  setCache(){
-    if(this.enableCache && this.dataTablePagination){
-      this._cache.set(this.id, `${PAGE_CACHE_KEY}_${this.dataTablePagination.currentPage}`, this.data)
-    }
-    this.checkSort();
-  }
 
   ngOnDestroy(): void {
     if(this.enableCache){
