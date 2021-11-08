@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { PAGE_CACHE_KEY, SortOrder } from '@core/utils/contants';
 import { Utils } from '@core/utils/utils';
+
 import { DataTablePaginationComponent } from './components/data-table-pagination/data-table-pagination.component';
 import { DataTableColumn } from './data-table.interface';
 import { DataTableCacheService } from './services/data-table.cache';
@@ -16,16 +17,18 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   @Input() pageSize: number = 9;
   @Input() total: number = 0;
   @Input() enableCache: boolean = true;
-  @Output() onDataTablePageChanged = new EventEmitter();
-  @ViewChild('dataTablePagination') dataTablePagination: DataTablePaginationComponent;
   @Input() @HostBinding('class.visible') visibility: boolean = false;
+
+  @Output() onDataTablePageChanged = new EventEmitter();
+
+  @ViewChild('dataTablePagination') dataTablePagination: DataTablePaginationComponent;
+
   id = Utils.generateId();
   sortState: {
     column: string,
     order: string
   }
   constructor(private _cache:DataTableCacheService) { }
-
 
   ngOnInit(): void {
   }
@@ -34,21 +37,13 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
     this.setCache();
   }
 
-
   ngOnChanges(changes: SimpleChanges): void {
     if(changes.data){
       this.setCache();
     }
     if(changes.columns && changes.columns.currentValue){
       /* init sort state */
-      let sortColumn = _.find(changes.columns.currentValue, (column)=> column.sortable && column.order);
-      if(sortColumn){
-        this.sortState = {
-          column: sortColumn.id,
-          order: sortColumn.order || SortOrder.Asc
-        }
-        this.applySort();
-      }
+      this.initSortState(changes.columns.currentValue);
     }
   }
 
@@ -65,7 +60,16 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
     this.data = this.sortData(column, order);
   }
 
-
+  private initSortState(columns){
+    let sortColumn = _.find(columns, (column)=> column.sortable && column.order);
+    if(sortColumn){
+      this.sortState = {
+        column: sortColumn.id,
+        order: sortColumn.order || SortOrder.Asc
+      }
+      this.applySort();
+    }
+  }
   private applySort(){
     if(this.sortState){
       this.data = this.sortData(this.sortState.column, this.sortState.order);

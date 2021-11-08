@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DataTableComponent } from './data-table.component';
 
 describe('DataTableComponent', () => {
@@ -65,4 +64,5 @@ describe('DataTableComponent', () => {
     let cellsLength = component.data.length * component.columns.length;
     expect(rows.length).toBe(cellsLength);
   });
+
 });
