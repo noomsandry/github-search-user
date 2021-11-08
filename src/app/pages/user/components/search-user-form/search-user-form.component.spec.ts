@@ -35,6 +35,28 @@ describe('SearchUserFormComponent', () => {
     expect(input).toBeTruthy();
   });
 
+  it('should render search button', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    const input = compiled.querySelector('button.submit-btn');
+    expect(input).toBeTruthy();
+  });
+
+  it('should render reset button', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    let resetButton = compiled.querySelector('button.reset-btn');
+    const SearchButton = fixture.debugElement.nativeElement.querySelector('button.submit-btn');
+
+    expect(resetButton).toBeFalsy();
+
+    component.login.setValue("eric");
+     // Trigger the search button
+    SearchButton.click();
+    fixture.detectChanges();
+    resetButton = compiled.querySelector('button.reset-btn');
+    expect(resetButton).toBeTruthy();
+
+  });
+
   it("form invalid when empty", () => {
     expect(component.login.valid).toBeFalsy();
   });

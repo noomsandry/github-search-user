@@ -9,7 +9,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class SearchUserFormComponent implements OnInit {
   public login: FormControl = new FormControl('', Validators.required);
   public submited: boolean = false;
-
+  public resetBtn = false;
   @Output() onSubmit = new EventEmitter();
   @Output() onReset = new EventEmitter();
 
@@ -19,19 +19,21 @@ export class SearchUserFormComponent implements OnInit {
   }
 
   search($event){
-    this.submited = true;
     $event.preventDefault();
+    this.submited = true;
     if(this.login.valid){
       this.onSubmit.emit(this.login.value);
+      this.login.disable();
+      this.resetBtn = true;
     }
-    this.login.disable();
   }
 
   reset($event){
+    $event.preventDefault();
     this.login.enable();
     this.login.setValue('');
-    this.submited = false;
-    $event.preventDefault();
     this.onReset.emit();
+    this.submited = false;
+    this.resetBtn = false;
   }
 }

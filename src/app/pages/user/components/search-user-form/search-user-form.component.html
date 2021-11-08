@@ -12,6 +12,6 @@
       Username input is required value
     </div>
   </div>
-  <button  (click)="search($event)" *ngIf="!submited" class="btn btn-primary mb-2 submit-btn">Search</button>
-  <button  (click)="reset($event)" *ngIf="submited" class="btn btn-light mb-2 reset-btn">Reset</button>
+  <button  (click)="search($event)" *ngIf="!resetBtn" class="btn btn-primary mb-2 submit-btn">Search</button>
+  <button  (click)="reset($event)" *ngIf="resetBtn" class="btn btn-light mb-2 reset-btn">Reset</button>
 </form>
