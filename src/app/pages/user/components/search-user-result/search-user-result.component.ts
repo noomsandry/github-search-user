@@ -26,6 +26,7 @@ export class SearchUserResultComponent implements OnInit, OnDestroy {
       title : "Avatar Url",
       width: 40,
       sortable: true,
+      valueGetter: ({ data }) => `<a href='${ data.avatar_url }' target='_blank'>${ data.avatar_url }</a>`
     },
     {
       id: "login",
