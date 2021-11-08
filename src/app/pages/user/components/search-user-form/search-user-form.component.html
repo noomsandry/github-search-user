@@ -8,10 +8,10 @@
       [ngClass]="{'is-invalid': submited && login.invalid && login.errors?.required}"
       required
     >
-    <div id="" class="invalid-feedback"  *ngIf="submited && login.invalid && login.errors?.required">
+    <div class="invalid-feedback"  *ngIf="submited && login.invalid && login.errors?.required">
       Username input is required value
     </div>
   </div>
-  <button  (click)="search($event)" *ngIf="!submited" class="btn btn-primary mb-2">Search</button>
-  <button  (click)="reset($event)" *ngIf="submited" class="btn btn-light mb-2">Reset</button>
+  <button  (click)="search($event)" *ngIf="!submited" class="btn btn-primary mb-2 submit-btn">Search</button>
+  <button  (click)="reset($event)" *ngIf="submited" class="btn btn-light mb-2 reset-btn">Reset</button>
 </form>

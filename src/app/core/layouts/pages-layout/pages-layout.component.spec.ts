@@ -22,4 +22,11 @@ describe('PagesLayoutComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(PagesLayoutComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.nav-link').textContent.trim()).toEqual('Search GitHub User');
+  });
 });

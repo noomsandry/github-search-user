@@ -24,7 +24,7 @@ const initialState: UserState = adapter.getInitialState({
   loadingState: LoadingState.Init,
   errorMessage: '',
   total: 0,
-  submited: false
+  submited: false,
 });
 
 const reducer = createReducer(initialState,

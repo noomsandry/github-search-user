@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
 
 import { SearchUserResultComponent } from './search-user-result.component';
 
@@ -8,7 +9,10 @@ describe('SearchUserResultComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SearchUserResultComponent ]
+      declarations: [ SearchUserResultComponent ],
+      imports: [
+        StoreModule.forRoot([]),
+      ]
     })
     .compileComponents();
   });
@@ -22,4 +26,9 @@ describe('SearchUserResultComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  afterEach(() => {
+    fixture.destroy();
+  });
+
 });
